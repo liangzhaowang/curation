@@ -1,0 +1,163 @@
+body {
+	background: #FAFAFA;
+}
+
+BODY,SPAN,CAPTION,DIV,BLOCKQUOTE,H1,H2,H3,H4,INPUT,SELECT,TH,TD,P,Ol,UL {
+	font-family: Helvetica, Arial, sans-serif;
+	padding: 0 auto;
+	margin: 0 auto;
+}
+
+div img{
+	border:0;
+	margin:0;
+	padding:0;
+	max-width:790px;
+}
+
+#container {
+	width: 900px;
+	text-align: left;
+	margin-bottom: 10px;
+	padding-bottom: 10px ;	
+}
+#content {
+	margin: 0;
+	padding: 0 10px ;
+	padding-bottom: 50px;
+}
+
+.EditBlock{
+	border: 2px dotted #000;
+	position:relative;
+	background-color: #ffffff;
+	min-width: 100px;
+	min-height: 170px;
+	z-index:1;
+	margin-top:20px;
+	margin-bottom:20px;
+	margin-right:auto;
+	**text-align:center;
+}
+.ShowBlock{
+	min-width: 100px;
+	min-height: 150px;
+	border: 2px dotted #000;
+	
+	-moz-border-radius: 8px;
+}	
+
+.editable{
+	background-color: #ffffd3;
+}
+.deletebtn{
+	position:absolute; top:12px; margin-top:-1.15em ;
+	right:5px;
+}
+.commitbtn{
+	position:absolute; top:12px; margin-top:-1.15em ;
+	right:30px;
+}
+.editbtn{
+	position:absolute; top:12px; margin-top:-1.15em ;
+	right:30px;
+}
+.hrClass{
+	color:#D1E5F4;
+	cursor:pointer;
+}
+.ctltable{
+	table-layout:fixed
+}
+
+.tbDisplay td .edit{
+	display: none;
+}
+.tbDisplay td.editing .edit{
+	display: block;
+}
+.tbDisplay td.editing .display{
+	display: none;
+}
+
+.pagination a, .pagination span {
+	float: left;
+    line-height: 18px;
+}
+
+.nodelist li{
+	margin: 0 3px 3px 3px;
+	padding: 0.4em;
+	padding-left: 0.5em;
+	font-size: 1.4em;
+	cursor: pointer;
+	border: 1px solid lightGrey;
+	background: #E6E6E6 50% 50% repeat-x;
+	font-weight: normal;
+	color: #555;
+	list-style-type: none;
+}
+
+.text-core .text-tag .text-button {
+	padding-left : 22px !important;
+}
+
+.text-core .text-tag .custom-edit {
+	display    : block;
+	width      : 16px;
+	height     : 16px;
+	background : url(/curation/img/tag_blue.png);
+	position   : absolute;
+	left       : 2px;
+	top        : 0px;
+}
+.text-core .text-tag .custom-edit:hover {
+	background : url(/curation/img/tag_blue_edit.png);
+}
+.quizAnswerOption:hover {
+	background-color:darkgray;
+	color:white;
+}
+
+.masonry { width:960px; margin:0 auto; list-style:none; }
+.masonry li { float:left; display:inline; margin:0 0px 10px 0; padding:6px; border:1px #DDD solid; background-color:lightcyan;}
+
+.searchbox{
+	border: 1px solid #DDDDDD;
+	box-shadow: 1px 1px 5px #DDDDDD inset;
+}
+
+.input-search ,
+.input-search:focus{
+	background: none repeat scroll 0 0 transparent;
+	-webkit-box-shadow: none;
+	border: 0 none;
+	width:90%;
+	padding: 8px 6px 8px 0;
+	outline:none;
+	clear:both;
+}
+.btn-search{
+	float: left;
+	margin: 5px 0 0 3px;
+	background: none repeat scroll 0 0 transparent;
+	border: 0 none;
+	box-shadow: none;
+	padding: 4px 6px;
+}
+
+.UIThumbPager .UIThumbPager_Hidden{display:none}
+.UIThumbPager .UIThumbPager_Loader{text-align:center;padding:32px 0}
+.UIThumbPagerControl{position:relative}
+.UIThumbPagerControl_Button{background-image:url(/curation/img/8OjNXDy3pHp.gif);border:0;background-repeat:no-repeat;float:left;width:25px;height:22px}
+.UIThumbPagerControl_Button_Left{background-position:0px -83px}
+.UIThumbPagerControl_Button_Left:active{background-position:-100px -83px}
+.UIThumbPagerControl_Button_Right{background-position:-25px -83px}
+.UIThumbPagerControl_Button_Right:active{background-position:-125px -83px}
+.UIThumbPagerControl_Text{color:#999;line-height:22px;padding-left:57px;font-size:10px}
+.PageNumber{color:#000;padding-right:9px}
+
+.pagination a { line-height:28px;cursor:pointer;}
+.pagination a:hover, .pagination .active a {background-color: #C7EEFE;}
+
+.yellowBg { background-color: yellow; }

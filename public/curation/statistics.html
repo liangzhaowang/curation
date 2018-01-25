@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Open Education Resource Repository</title>
+	<link rel="stylesheet" type="text/css" href="/curation/css/jquery.wysiwyg.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="/curation/css/bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="/curation/css/bootstrap-responsive.css" />
+	<link rel="stylesheet" type="text/css" href="/curation/css/pagination.css" />
+	<link rel="stylesheet" type="text/css" href="/curation/css/custom.css" />
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+      }
+	   #authorGraph {
+        width : 600px;
+        height: 384px;
+        margin: 8px auto;
+      }
+    </style>
+  </head>
+
+  <body style="width:1423px">	
+	<div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+			<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<div class="icon-bar"></div>
+				<div class="icon-bar"></div>
+				<div class="icon-bar"></div>
+			</button>		 
+			<a class="brand" href="/curation/searchPage.html" style=" margin-left:-140px;">Open Education Resource Repository</a>
+			<ul class="nav">
+				<li>
+					<input id="xlInput" name="q" style="margin-left:20px;margin:7px; width:200px" type="search" onkeydown="if(event.keyCode==13){searchData();};">
+					<button class="btn btn-primary" type="button" style="margin:7px;" onclick="searchData();">Search</button> 
+				</li>
+				<li><a class="brand" href="/curation/sourceList.html" style="margin-left:20px;margin-top:4px"><h4>Sources</h4></a></li>
+				<li><a class="brand" href="/curation/statistics.html" style="margin-left:10px;margin-top:4px"><h4>Statistics</h4></a></li>
+			</ul>
+        </div>
+      </div>
+    </div>
+	
+	<div style="width:1423">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#tabs-1" data-toggle="tab">The latest one week</a></li>
+			<li><a id="tabgraph-2" href="#tabs-2" data-toggle="tab">The latest one month</a></li>
+			<li><a id="tabgraph-3" href="#tabs-3" data-toggle="tab">The latest three months</a></li>
+			<li><a id="tabgraph-4" href="#tabs-4" data-toggle="tab">All</a></li>
+		</ul>
+		<div class="tab-content">
+			<div id="tabs-1" class="tab-pane active">
+				<div id="authorGraph-1" class="container" style="height:400px;margin-left:0px;"></div>
+			</div>
+			<div id="tabs-2" class="tab-pane">
+				<div id="authorGraph-2" class="container" style="height:400px;margin-left:0px;"></div>
+			</div>
+			<div id="tabs-3" class="tab-pane">
+				<div id="authorGraph-3" class="container" style="height:400px;margin-left:0px;"></div>
+			</div>
+			<div id="tabs-4" class="tab-pane">
+				<div id="authorGraph-4" class="container" style="height:400px;margin-left:0px;"></div>
+			</div>
+		</div>
+
+		<div class="container">
+		  <footer>
+			<!--p>All Rights Reserved, Copyright © FUJITSU 2000 - 2011</p-->
+		  </footer>
+		</div>
+	</div>
+	
+    <script type="text/javascript" src="/curation/lib/jquery-1.7.js"></script>
+	<script type="text/javascript" src="/curation/lib/bootstrap-tab.js"></script>
+	<script type="text/javascript" src="/curation/lib/flotr2.min.js"></script>
+	<script type="text/javascript" src="/curation/js/conf.js"></script>
+	<script type="text/javascript" src="/curation/js/statistics.js"></script>
+</body></html>

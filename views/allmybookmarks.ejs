@@ -1,0 +1,33 @@
+<div id="username" style="display:none;"><%= user ? user.username : "undefined"%></div>
+<div id="nodeAuthor" style="display:none;"><%= (user&&user.isSelf=="false") ? user.nodeAuthor : user.username%></div>
+<div id="isSelf" style="display:none;"><%= user ? user.isSelf : "undefined"%></div>
+<div style="width:900px; margin-top:50px">
+	<h2 style="margin-bottom:10px">All <%if(user && user.isSelf == "true"){%>My<%} else {%><%= user ? user.nodeAuthor+"'s" : ""%><%}%> Bookmarks(<span id="bookmarksCount"></span>)</h2>
+	<div id="bookmarkAjaxLoader"><center><img src='/curation/img/ajaxLoader.gif'><img></center></div>
+	<table id="bookmarknodes" class="table table-striped" style="width:100%" align="center" >		
+	</table>
+	<div class="pagination"></div>
+</div>
+
+<script type="text/template" id="tpl-bookmarklist">
+	<td style='text-align:left; width:95px;'>
+		<a href="/nodes/<@= _id @>"><img style='max-height:90px; max-width:90px;' src=<@= thumbnail @> ></a>
+	</td>			
+	<td style='text-align:left;'>
+		<h2 style="word-wrap: break-word; word-break: normal;"> <a href="/nodes/<@=_id@>"><@=title @></a> - <a href="<@= showMoreLikeThis(_id) @>" class="btn btn-mini btn-primary">More Like This</a> </h2>
+		<div style="word-wrap: break-word; word-break: normal;"><font size="1pt" color="darkgray"><a href="/users/<@= username @>"><@= username @></a> - <@= FormatDateTime(updateDate) @> &nbsp;&nbsp; <@= view_total @> Views <@= bookmark_num>0 ? '<a href="/node/'+_id+'/bookmarks">' : '' @><@= bookmark_num @><@= bookmark_num>0 ? '</a>' : '' @> Bookmarks  <@= typeof(comment_num)!= "undefined"? comment_num:'0' @> Comments </font></div>
+		<div class="partContent" style="display:block;word-wrap: break-word; word-break: normal;"><@= content.length>400? content.substr(0,400)+"...<a href='#' onclick='showAllContent(this)'>more</a>" : content @></div>
+		<div class="fullContent" style="display:none;word-wrap: break-word; word-break: normal;"><@=content@></div>
+		<div style="word-wrap: break-word; word-break: normal;"><@= getTagsButtonStr(category) @></div>
+	</td>
+	<%if(user && user.isSelf == "true"){%>
+	<td style='text-align:center;width:110px'>
+		<i id="<@= _id @>" style="cursor:pointer;" class="icon-star" title="unbookmark" onclick="removeBookmark(this.id);"></i>
+	</td>
+	<%}%>
+</script>
+
+<link rel="stylesheet" type="text/css" href="/curation/css/screen.css" />
+<script type="text/javascript" src="/curation/lib/jquery.pagination.js"></script>
+<script type="text/javascript" src="/curation/js/allmybookmarks.js"></script>
+

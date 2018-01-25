@@ -1,0 +1,448 @@
+<div id="username" style="display:none"><%= user ? user.username : "publicuser" %></div>
+<div id="nodetype" style="display:none"><%= typeof(nodetype)!="undefined" ? nodetype : "normal" %></div>
+<div id="nodeid" style="display:none"><%= nodeid %></div>
+<div id="nodeIndexForMark" style="display:none"></div>
+<div id="pageDiv" style="width:1300px; margin-top:40px; ">
+	<div id="container"  style="left:70px;top:25px;min-width:700px;">
+		<div id="frametab">
+			<button id='edit' class="btn btn-primary" style="display:none">Edit Node</button>
+			<button id='btnDeleteNode' class="btn btn-primary" style="display:none" onclick="deleteNode();">Delete</button>
+			<div id="content" style="display:none"><br>
+				<div id="chooseAddItem" style=" margin-bottom : 20px ; ">
+					<button id="saveAllData" class="btn btn-large btn-success" onclick="saveAllData()" >Save</button>
+					<br/><br/>
+					<div id="nodePrivacy" class="btn-group" data-toggle="buttons-radio">
+						<button class="btn btn-mini btn-warning active" value="public">public</button>
+						<button class="btn btn-mini btn-warning" value="unlisted">unlisted</button>
+						<button class="btn btn-mini btn-warning" value="private">private</button>
+					</div>
+					<br/>
+					<table id="tbDisplay" class="tbDisplay" style="width:100%; height:35px"><tr><td>					
+					<input id="topTitle" name="topTitle" placeholder="Click to add the node title" style='font-size:16pt; width:99%'></input>					
+					</td></tr><tr><td style='height:3px' ></td></tr>
+					<tr id="trDisplayDescription"><td id="tdDisplayDescription" click="editDesc(this)">					
+					<div id="divTopDescritionEdit" class="display" style="font-size:12pt; color:darkgray; height:100%" onmouseover='$(this).addClass("editable");' onmouseout='$(this).removeClass("editable");'>(Click to add the node description)</div>
+					<div class="edit" style="height:46px"><textarea id="topDescription" name="topTitle" placeholder="Click to add the node description" style='font-size:12pt; width:99%; height:80%'></textarea></div>					
+					</td></tr><tr><td style='height:9px;'></td></tr></table>
+					<table style="width:100%">
+						<tr><td style="width:40px; height:28px">tags:</td><td valign="middle"><input id="tagsText" placeholder='please input tags (separated by ",")' style="width:99%"></input></td></tr>
+						<tr><td colspan="2">
+							<img style="max-height:100px" id="nodeTopThumbnail"></img>
+							<div id="changeTopNodeThumbnail"  class="UIThumbPagerControl UIThumbPagerControl_First" style="text-align:left;">
+								<div id="btnTopNodeThumbnail">
+									<button id="btnTopNodeThumbnail_Prev" class="UIThumbPagerControl_Button UIThumbPagerControl_Button_Left" onclick="var index = $(this).parent().parent().find('#currentIndex').html(); index = eval(index)-1; $(this).parent().parent().find('#currentIndex').html(index); getCurrentTopNodeThumbnail(index);"></button>
+									<button id="btnTopNodeThumbnail_Next" class="UIThumbPagerControl_Button UIThumbPagerControl_Button_Right" onclick="var index = $(this).parent().parent().find('#currentIndex').html(); index = eval(index)+1; $(this).parent().parent().find('#currentIndex').html(index); getCurrentTopNodeThumbnail(index);"></button>
+								</div>
+								<div id="lblPicNumber" class="UIThumbPagerControl_Text">
+									<span class="PageNumber">
+										<span id="currentIndex">1</span>  of <span id="sumPic"></span>
+									</span>
+									Choose a Thumbnail
+								</div>
+								<div>
+									<input name="no_picture" id="ujuuws_1" type="checkbox" onclick="hideTopNodeThumbnail(this);">No Thumbnail</input>
+								</div>
+							</div>
+						</td></tr>
+					</table>
+				</div>
+				<div style="background-color:#D1E5F4">
+					<button class="btn-mini btn-primary" style="float:left; margin-top:-6px" onclick="$(this).parent().find('.hrClass').click();" title="Please click the button or the bar to add a new item">Add</button><hr id="showHr_0" size=10 title="Please click the button or the bar to add a new item" class="hrClass" style="filter:alpha(opacity=0,finishopacity=100,style=3)"></hr>
+				</div>
+				<div id="blackBlocks" class="sortBlock" style="min-height:80px"></div>		
+			</div>
+			<div id="displaytab"  style="position:relative;">
+				<div id="displayblocks" style="text-align: center;"></div>
+
+				<div id="commentblocksHR" style="background-color:#D1E5F4">
+						<hr size="10" style="filter:alpha(opacity=0,finishopacity=100,style=3)"></hr>
+				</div>
+				<div id="commentblocks" class="well" style="margin-top:20px">
+					<label><font style="font-weight:bolder; font-size:16pt" >Comments:</b></font></label>
+					<div style="margin-top:20px;">						
+						<textarea id="nodeComment" style="width:80%;height:42px;" placeholder="please input your comment here..."></textarea>&nbsp;<button style="height:50px" class="btn btn-large" onclick="addComment()">Submit</button>
+					</div>
+					<div id="commentDiv" style="word-wrap:break-word;word-break:normal;"></div>
+				</div>
+			</div>
+		</div>
+		
+		<!--   test  -->
+		<div id='testContent'></div>
+	</div>
+	<div id="searchPanel" style="width:35%;display:none;position:absolute;padding-left:0px;top:30px;bottom:0px;left:850px;min-width:500px;" class="well">
+		<ul class="nav nav-tabs">
+			<li target="keyWork-OER" class="active" style="width:12%;" onclick="changeSearchSource(this)"><a href="#tabs-1" data-toggle="tab" style="line-height:26px;float:left">OER</a></li>
+			<li target="keyWork-YOUTUBE" style="width:12%;" onclick="changeSearchSource(this)"><a href="#tabs-2" data-toggle="tab"><img src="/curation/img/youtube-24px.png" title="Youtube"></a></li>
+			<li target="keyWork-TWITTER" style="width:12%;" onclick="changeSearchSource(this)"><a href="#tabs-3" data-toggle="tab"><img src="/curation/img/twitter-24px.png" title="Twitter"></a></li>
+			<li target="keyWork-FLICKR" style="width:12%;" onclick="changeSearchSource(this)"><a href="#tabs-4" data-toggle="tab"><img src="/curation/img/flickr-24px.png" title="Flickr"></a></li>
+			<li target="keyWork-IMAGE" style="width:12%;" onclick="changeSearchSource(this)"><a href="#tabs-5" data-toggle="tab" style="line-height:26px;float:left">IMAGE</a></li>
+			<li target="keyWork-WEB" style="width:12%;" onclick="changeSearchSource(this)"><a href="#tabs-6" data-toggle="tab" style="line-height:26px;float:left">WEB</a></li>
+			<li target="keyWork-NEWS" style="width:12%;" onclick="changeSearchSource(this)"><a href="#tabs-7" data-toggle="tab" style="line-height:26px;float:left">NEWS</a></li>
+			<li target="buffer-ITEMS" style="width:12%;" onclick="getSearchData(1,10,8);"><a href="#tabs-8" data-toggle="tab" style="line-height:26px;float:left">BUFFER</a></li>
+		</ul>
+		<div class="tab-content">
+			<div id="tabs-1" class="tab-pane active" >	
+				<div class="searchbox">
+					<input id="keyWork-OER" placeholder="Please input keyword here…" class="input-search" onkeydown="if(event.keyCode==13){ getSearchData(1,10,1); }"></input>
+					<button class="btn-search" onclick="getSearchData(1,10,1)"><div class="icon-search"></div></button>
+				</div>
+			</div>
+			<div id="tabs-2" class="tab-pane" >	
+				<div class="searchbox">
+					<input id="keyWork-YOUTUBE" placeholder='Please input keyword here…' class="input-search" onkeydown="if(event.keyCode==13){ getSearchData(1,10,2); }"></input>
+					<button class="btn-search" onclick="getSearchData(1,10,2)"><div class="icon-search"></div></button>
+				</div>
+			</div>
+			<div id="tabs-3" class="tab-pane" >	
+				<div class="searchbox">
+					<input id="keyWork-TWITTER" placeholder='Please input keyword here…' class="input-search" onkeydown="if(event.keyCode==13){ getSearchData(1,10,3); }"></input>
+					<button class="btn-search" onclick="getSearchData(1,10,3)"><div class="icon-search"></div></button>
+				</div>
+			</div>
+			<div id="tabs-4" class="tab-pane" >
+				<div class="searchbox">
+					<input id="keyWork-FLICKR" placeholder='Please input keyword here…' class="input-search" onkeydown="if(event.keyCode==13){ getSearchData(1,10,4); }"></input>
+					<button class="btn-search" onclick="getSearchData(1,10,4)"><div class="icon-search"></div></button>
+				</div>
+			</div>
+			<div id="tabs-5" class="tab-pane" >
+				<div class="searchbox">
+					<input id="keyWork-IMAGE" placeholder='Please input keyword here…' class="input-search" onkeydown="if(event.keyCode==13){ getSearchData(1,10,5); }"></input>
+					<button class="btn-search" onclick="getSearchData(1,10,5)"><div class="icon-search"></div></button>
+				</div>
+			</div>
+			<div id="tabs-6" class="tab-pane" >
+				<div class="searchbox">
+					<input id="keyWork-WEB" placeholder='Please input keyword here…' class="input-search" onkeydown="if(event.keyCode==13){ getSearchData(1,10,6); }"></input>
+					<button class="btn-search" onclick="getSearchData(1,10,6)"><div class="icon-search"></div></button>
+				</div>
+			</div>
+			<div id="tabs-7" class="tab-pane" >
+				<div class="searchbox">
+					<input id="keyWork-NEWS" placeholder='Please input keyword here…' class="input-search" onkeydown="if(event.keyCode==13){ getSearchData(1,10,7); }"></input>
+					<button class="btn-search" onclick="getSearchData(1,10,7)"><div class="icon-search"></div></button>
+				</div>
+			</div>
+			<div id="tabs-8" class="tab-pane" >
+			</div>
+		</div>
+		<div id="searchResult" class="sortBlock" style="width:96%;bottom:50px;top:120px;overflow-y:scroll;position:absolute;display:none"></div>
+		<div id="bufferResult" class="sortBlock" style="width:96%;bottom:50px;top:70px;overflow-y:scroll;position:absolute;display:none"></div>
+		<div id="Pagination_Search" class="pagination" style="bottom:-10px;position:absolute;"></div>
+		<div id="hiddenresult"></div>
+	</div>
+</div>
+
+<div id="modalForQuiz" class="modal hide fake">
+	<div class="modal-body" style="max-height:650px">
+		<br/>
+		<div id="answerNotice" style="text-align:center;font-weight:bolder;font-size:14pt" ></div>
+	</div>
+</div>	
+
+<button id="sendHighlightText" class="" style="display:none; position:absolute;">Highlight</button>
+
+<script type="text/template" id="tpl-item-details">
+<div class="EditBlock" id="ShowBlock_<@=showBlockCount@>" itemid="<@=id@>" style="cursor:move" >
+	<div class="dialog-createNew" style="display: block;z-index:9999;">
+		<div class="tabbable" id="tabsNew_<@=showBlockCount@>">
+			<ul class="nav nav-tabs">
+				<li class="url <@= (inputType=="URL" || inputType=="") ? "active":"" @>"><a href="#tabs-1_<@=showBlockCount@>" data-toggle="tab">URL</a></li>					
+				<li class="text <@= inputType=="Note"? "active":"" @>"><a href="#tabs-3_<@=showBlockCount@>" data-toggle="tab">Note</a></li>					
+				<li class="Quiz <@= inputType=="Quiz"? "active":"" @>"><a href="#tabs-5_<@=showBlockCount@>" data-toggle="tab">Quiz</a></li>
+				<li class="HtmlSource <@= inputType=="embeddedHTML"? "active":"" @>"><a href="#tabs-2_<@=showBlockCount@>" data-toggle="tab">Embed HTML</a></li>
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane <@= (inputType=="URL" || inputType=="") ? "active":"" @>" id="tabs-1_<@=showBlockCount@>" style="position:absolute; width:100%">
+					<input class='resourceURL' id='resourceURL_<@=showBlockCount@>' value='<@= inputType=="URL"? inputData:"" @>' placeholder='Please input URL here…' style='position:absolute;left:20px;width:90%;font-size:12pt;' onkeydown='if(event.keyCode==13){ $(this).parents(".EditBlock").find(".commitbtn").click(); }'></input>
+					<img id="urlLoader" src='/curation/img/ajaxLoader.gif' style="display:none; position:absolute; top:35px; left:380px"><img>					
+				</div>
+				<div class="tab-pane <@= inputType=="embeddedHTML"? "active":"" @>" id="tabs-2_<@=showBlockCount@>">
+					<textarea style='position:absolute;left:20px;height:90px; width:90%; overflow:auto;font-size:12pt;' class='HtmlSourceContent' id='HtmlSourceContent_<@=showBlockCount@>' placeholder='<@= htmlSourceInputNotice @>'><@= inputType=="embeddedHTML"? inputData:"" @></textarea>
+				</div>
+				<div class="tab-pane <@= inputType=="Note"? "active":"" @>" id="tabs-3_<@=showBlockCount@>">						
+					<textarea style='position:absolute;left:20px;height:100px' cols=80 rows=2 class='Textcontent' id='Textcontent_<@=showBlockCount@>'><@= inputType=="Note"? inputData:""  @></textarea>
+				</div>					
+				<div class="tab-pane <@= inputType=="Quiz"? "active":"" @>" id="tabs-5_<@=showBlockCount@>">
+					<table id='tbQuizOption' style='position:absolute;width:90%; top:49px;line-height:26px'>
+						<tr><td style="width:20px"></td><td rowspan=4 style="width:45%"><textarea id='quizQuestion' style='left:20px;height:100px;width:100%;' placeholder='Please input question here'></textarea></td>
+							<td style="width:20px"></td><td><input style="width:100%" placeholder='Please input answer option here'></input></td><td><input class='radio' type='radio' name='option'></input><!--button class='btn btn-mini' onclick='removeOption(this)' title="delete">X</button--></td></tr>
+						<tr><td></td><td></td><td><input style="width:100%" placeholder='Please input answer option here'></input></td><td><input class='radio' type='radio' name='option'></input><!--button class='btn btn-mini' onclick='removeOption(this)' title="delete">X</button--></td></tr>
+						<tr><td></td><td></td><td><input style="width:100%" placeholder='Please input answer option here'></input></td><td><input class='radio' type='radio' name='option'></input><!--button class='btn btn-mini' onclick='removeOption(this)' title="delete">X</button--></td></tr>
+						<tr><td></td><td></td><td><input style="width:100%" placeholder='Please input answer option here'></input></td><td><input class='radio' type='radio' name='option'></input><!--button class='btn btn-mini' onclick='removeOption(this)' title="delete">X</button--></td></tr>							
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="oembedDiv" id="oembedDiv_<@=showBlockCount@>" style="display:none"></div>		
+	<div class="commitbtn btn btn-mini btn-primary" id="commitbtn_<@=showBlockCount@>" style="width:35px" title="save">OK</div>
+	<div class="commitbtnEx" id="commitbtnEx_<@=showBlockCount@>" style="display:none"></div>
+	<div class="editbtn btn btn-mini btn-primary" id="editbtn_<@=showBlockCount@>" tag="<@=inputType@>" style="display:none; width:35px" title="edit item">Edit</div>
+	<div class="deletebtn btn btn-mini btn-primary" id="deletebtn_<@=showBlockCount@>" title="delete">X</div>
+</div>
+<div style="background-color:#D1E5F4">
+		<button class="btn-mini btn-primary" style="float:left; margin-top:-6px" onclick="$(this).parent().find('.hrClass').click();" title='<@= hrNotice @>'>Add</button><hr size=10 title='<@= hrNotice @>' id="showHr_<@=showBlockCount@>" class="hrClass template" style="filter:alpha(opacity=0,finishopacity=100,style=3)"></hr>
+</div>
+</script>
+<script type="text/template" id="tpl-HR">
+	<div style="background-color:#D1E5F4">
+		<button class="btn-mini" style="float:left; margin-top:-6px">insert</button><hr size=10 title='<@= hrNotice @>' id="showHr_<@=showBlockCount@>" class="hrClass template" style="filter:alpha(opacity=0,finishopacity=100,style=3)"></hr>
+	</div>
+</script>
+<script type="text/template" id="tpl-item-display">
+	<div class="edit"><input id="subTitle" name="subTitle" placeholder="Click to add the item title" style='font-size:16pt; width:99%' value="<@= title @>"></input></div>
+	<div class="edit" style="min-height:40px"><textarea id="subDescription" name="subDescription" placeholder="Click to add the item description" style='font-size:12pt; width:98%; height:80%'><@= description @></textarea></div>
+	
+	<table class="tbDisplay" style='width:100%;border-top:ridge'> 
+		<tr>
+			<td style='text-align:left;'><div class="DisplayBlock"><@= embed @></div></td>
+		</tr>
+		<tr style="display:<@= (typeof(type) != "undefined" && type=='video') ? 'block':'none' @>">
+			<td style='text-align:left;'><a target="_blank" href="<@= inputData @>"><@= inputData @></a></td>
+		</tr>
+		<tr style="display:<@= (typeof(provider_type) != "undefined" && provider_type=='video' && provider_name=='YouTube') ? 'block':'none' @>">
+			<td style='text-align:left;'>
+				<label id="lblMarkTime" style="display:none"></label>
+				<textarea id="nodeYoutubeMark" style="width:500px;display:none"></textarea>
+				<button id="addYoutubeMark" class="btn btn-mini" starttime="0" action="mark">Mark</button>
+				<button id="cancelAddYoutubeMark" style="display:none" class="btn btn-mini">Cancel</button>
+			</td>
+		</tr>
+		<tr><td>
+			<div id="youtubeMarkView"></div>
+		</td></tr>
+	</table>
+</script>	
+
+<script type="text/template" id="tpl-displayBlock">
+	<div style="background-color:#D1E5F4"><hr size=10 style="filter:alpha(opacity=0,finishopacity=100,style=3)"></hr></div>
+	<table style='width:100%;'>
+		<tr>
+			<td style='text-align:left;'><div id='divTitle' style='font-size:18pt;line-height:29px;font-weight:bold;'><@= title @></div></td>
+		</tr>
+		<tr>
+			<td style='text-align:left;nowrap:false;'><div id='divDescription' style='font-size:12pt;line-height:1.5em;'><@= description @></div></td>
+		</tr>
+	</table>
+	<table class="tbDisplay" style='width:100%;border-top:ridge'>
+		<tr>
+			<td style='text-align:left;'><div class="DisplayBlock"><@= embed @></div></td>
+		</tr>			
+	</table>
+</script>
+
+
+
+<script type="text/template" id="tpl-commentBlock">
+	<div class="well">
+		<b><a target="_blank" href="/users/<@= username@>"><@= username@></a></b> <@= FormatDateTime(datetime) @> 
+		<button class="editComment icon-edit commentToolButton" style="border:none" title="edit comment"></button>
+		<button class="deleteComment icon-remove commentToolButton" style="border:none" title="delete comment"></button><br/>
+		<div id="contentView"><@= content@></div>
+		<div id="contentEdit" style="display:none">
+			<textarea id="contentInput" placeholder="please input your comment here..." style="width:80%;height:42px;"><@= content@></textarea>
+			<button class="btn saveEditContent">Save</button>
+			<button class="btn cancelEditContent">Cancel</button>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="tpl-youtubeMarkBlock">
+	<div style="text-align: left;">
+		<a style="cursor:pointer" onclick="playYoutubeVideo(this,<@= timestamp@>);"><@= formatTime(timestamp).substr(0,8)@></a> : <@= notes@>
+		<button class="editYoutubeMark icon-edit markToolButton" style="border:none" title="edit mark"></button>
+		<button class="deleteYoutubeMark icon-remove markToolButton" style="border:none" title="delete mark"></button><br/>
+		<div id="contentEdit" style="display:none">
+			<textarea id="contentInput" placeholder="please input your mark content here..." style="width:80%;height:42px;"><@= notes@></textarea>
+			<button class="btn saveEditContent">Save</button>
+			<button class="btn cancelEditContent">Cancel</button>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="tpl-searchEmpty">
+	<div style='position:absolute;font-size:14pt;margin-top:150px;width:96%;text-align:center;'>No result found!</div>
+</script>
+
+<script type="text/template" id="tpl-searchVideoResult">
+	<div style="width:98%; min-height:64px;max-width:500px;padding: 3px; border: 1px solid #DDDDDD; margin-top:5px; cursor:move;" >
+		<div style="position:relative;color:snow;float:right;margin-right:7px;margin-top:1px;">
+			<button class="icon-star-empty saveEditContent" title="Buffer"  style="border:none" onclick="saveItemsToBuffer(this)"></button>
+		</div>
+		<img src="@src" style="float: left; margin: 5px; max-height: 64px; max-width: 80px;" ><div id="videoDuration" style="display:@displayDuration;position:relative;background-color:black;color:snow;left:-185px;top:49px;width:51px;height:16px;">@duration</div></img>
+		<div style="text-align: left;">
+			<a class="uri" sourceUrl="@sourceUrl" target="_blank" href="@uri"><div>@title</div></a>
+			<div style="color:green">@author  @updatedDate</div>
+			<div>@content</div>
+			<a style="display:@display" target="_blank" href="@uri"><div style="color:green; word-break:break-all;">@displayUri</div></a>
+		</div>
+	</div>
+</script>	
+<script type="text/template" id="tpl-searchVideoResult-twitter">
+	<div style="max-width:500px; min-height:64px;padding: 3px; border: 1px solid #DDDDDD; margin-top:5px; cursor:move;" >
+		<div style="position:absolute;color:snow;right:7px;margin-top:1px;">
+			<button class="icon-star-empty saveEditContent" title="Buffer"  style="border:none" onclick="saveItemsToBuffer(this)"></button>
+		</div>
+		<a target="_blank" href="@userhome"><img src="@src" style="float: left; margin: 5px; max-height: 64px; max-width: 80px;" /></a>
+		<div style="text-align: left;">
+			<a target="_blank" href="@userhome"><div><strong style="font-weight:bold;font-size:14px;">@title</strong><s style="color:#BBBBBB;text-decoration:none;font-size:12px;">  @</s><b style="color:#999999;font-size:12px;font-weight:normal;">@author</b></div></a>
+			<div>@content</div>
+			<a class="uri" target="_blank" href="@uri"><div style="color:green">@updatedDate</div></a>
+		</div>	
+	</div>
+</script>
+<script type="text/template" id="tpl-searchPhotoResult-flickr">
+	<li id="photoIndex_@photoIndex" style="width:80px; height:75px; list-style: none outside none; padding: 3px; border: 1px solid #DDDDDD; margin-top:15px; cursor:move;">
+		<div style="position:absolute;color:snow;right:15px;bottom:5px;margin-top:1px;">
+			<button class="icon-folder-close saveEditContent" title="Buffer"  style="border:none" onclick="saveItemsToBuffer(this)"></button>
+		</div>
+		<img class="uri" src="@src"  href="@urlForEmbed">
+	</li>
+</script>
+<script type="text/template" id="tpl-resourceEmbed">
+	<iframe src='#URL' style='width:100%;'></iframe>
+</script>
+<script type="text/template" id="tpl-imageEmbed">
+	<img class="embedImage" style="max-width:600px" src='#URL' ></img></br>
+	<a href='#URL' class="embedLink">#URL</a>
+</script>
+<script type="text/template" id="tpl-linkWithImageEmbed">
+	<img class="embedImage" style="max-width:600px" src='#Thumbnail' ></img></br>
+	<a href='#URL' class="embedLink">#displayUrl</a>
+</script>
+<script type="text/template" id="tpl-linkEmbed">
+	<a href='#URL' class="embedLink">#displayUrl</a>
+</script>
+
+<script type="text/template" id="tpl-bufferLinkEmbed">
+	<div style="max-width:460px; min-height:64px;padding: 3px; border: 1px solid #DDDDDD; margin-top:5px; cursor:move;" >
+		<div style="text-align: left;">
+			<div style='text-align:left;'>@itemType</div>
+			<div style="position:absolute;color:snow;right:20px;margin-top:1px;">
+				<button class="icon-remove saveEditContent" title="removeBuffer" id="removeBufferButton"  style="border:none;" onclick="removeItemsFromBuffer(this)"></button>
+			</div>
+			<a href='@URL' nodeId="@nodeId" class="uri">@displayUrl</a>
+		</div>	
+	</div>
+</script>
+
+<script type="text/template" id="tpl-noteEmbed">
+	<div style='text-align:left; overflow:scroll;'>#content</div>
+</script>
+<script type="text/template" id="tpl-youtubeEmbed">
+	<iframe width="459" height="344" src="http://www.youtube.com/embed/#vId?fs=1&feature=oembed" frameborder="0" allowfullscreen></iframe>
+</script>
+
+<script type="text/template" id="tpl-quizOption">
+	<tr><td><input style='width:300px' placeholder='Please input answer option here'></input>&nbsp;&nbsp;<input type='radio' name='option'></input><!--button class='btn' onclick='removeOption(this)'>delete</button--></td></tr>
+</script>	
+
+<script type="text/template" id="tpl-viewtopshow">
+	<div style="width:900px;margin-top:7px">
+		<table style="margin-bottom:10px"><tr><td style="width:570px;">
+			<div style="font-size:22pt;line-height: 32px;text-align:left;margin-bottom:5px">#topTitle - <a href="#mltURL" class="btn btn-mini btn-primary">More Like This</a></div>
+			<div class="partContent" style="display:block;font-size:12pt;text-align:left;">#content_short</div>
+			<div class="fullcontent" style="display:none;font-size:12pt;text-align:left;">#Description</div>
+			<div style="font-size:12pt;text-align:left;">
+				<a href="/users/#author"><font color='plum'>#author</font></a> updated at 
+				<font color='plum'>#updateDate</font>
+			</div>
+			<div style="font-size:12pt;text-align:left; margin-top:5px">#tags</div>
+		</td><td style="width:300px;vertical-align: top;">
+			<table><tr><td style="text-align:right">					
+				<a href="https://twitter.com/share" class="twitter-share-button" data-lang="en">Tweet</a>
+				<div class="fb-like" data-send="false" data-layout="button_count" data-width="80" data-show-faces="true"></div>
+				<g:plusone annotation="bubble" size="Medium"></g:plusone>
+			</td></tr><tr><td style="height:8px"></td></tr><tr><td style="text-align:right">
+				<font size="5pt">#views</font><font size="3pt"> views<font>
+				<font size="5pt"><span id="bookmarkNum">#bookmark</span></font><font size="3pt"> bookmarks<font>
+			</td></tr><tr><td style="text-align:right">
+				<button id="btnBookmark" class="btn btn-large" style="float:right;margin-top:5px" value="0" onclick="switchBookmark(this);"><i id="icoBookmark" class="icon-star-empty"></i><span id="lblBookmark" style="float:right">&nbspbookmark</span></button>
+			</td></tr></table>
+		</td></tr></table>
+	</div>
+</script>
+
+<script type="text/template" id="tpl-urlContentmsg">
+	<div  style="text-align:left;">
+		<div id="detailsAjaxLoader" style="display:none;"><center><img src='/curation/img/ajaxLoader.gif'><img></center></div>
+		<a id="showmsg" onclick="showDetailsData('#urldata',this)" state="show">show details</a>
+	</div>
+</script>
+
+<script type="text/template" id="tpl-urlContent">
+	<div id="showUrlDetailContent" src="#src" style="text-align:left;">
+		<a id="show" state="show" onclick="showDetailsData('#src',this)">show details</a>
+		<!--a id="show" onclick="$(this).hide();$(this).parent().find('#urlDetail').show();$(this).parent().parent().find('.DisplayBlock').hide();$(this).parent().parent().find('#changeImage').hide(); $(this).parent().find('#hidden').show();">show details</a>
+		<a id="hidden" style="display:none;" onclick="$(this).hide(); $(this).parent().find('#show').show();$(this).parent().find('#urlDetail').hide();$(this).parent().parent().find('.DisplayBlock').show();$(this).parent().parent().find('#changeImage').show(); ">hide details</a--> 
+		<div id="urlDetail" style="display:none;">
+			<div id="urlDetailContent" style="text-align:left;">
+				<div class='detailContent'>#urlContent</div>				
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="tpl-urlIframe">
+	<div id="showUrlIframe" src="#src" style="text-align:left;">
+		<a id="show" state="show" onclick="showDetailsData('#src',this)">show details</a>
+		<!--a id="show" onclick="$(this).hide(); $(this).parent().find('#hidden').show(); $(this).parent().find('#urlIframe').show();$(this).parent().parent().find('.DisplayBlock').hide();$(this).parent().parent().find('#changeImage').hide();">show details</a>
+		<a id="hidden" style="display:none;" onclick="$(this).hide();  $(this).parent().find('#show').show(); $(this).parent().find('#urlIframe').hide();$(this).parent().parent().find('.DisplayBlock').show();$(this).parent().parent().find('#changeImage').show();">hide details</a-->
+		<div id="urlIframe" style="display:none;">
+			<div class='detailContent'><iframe style='width:99%; height:500px;' src='#src'></iframe></div>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="tpl-switchpicture">
+	<div id="changeImage"  class="UIThumbPagerControl UIThumbPagerControl_First" style="text-align:left;">
+		<div id="btnChangePic">
+			<div id="imgsPathPanel" style="display:none"></div>
+			<button class="UIThumbPagerControl_Button UIThumbPagerControl_Button_Left" onclick="var index = $(this).parent().parent().find('#currentIndex').html(); index = eval(index)-1; $(this).parent().parent().find('#currentIndex').html(index); getCurrentPic(this,index);"></button>
+			<button class="UIThumbPagerControl_Button UIThumbPagerControl_Button_Right" onclick="var index = $(this).parent().parent().find('#currentIndex').html(); index = eval(index)+1; $(this).parent().parent().find('#currentIndex').html(index); getCurrentPic(this,index);"></button>
+		</div>
+		<div id="lblPicNumber" class="UIThumbPagerControl_Text">
+			<span class="PageNumber">
+				<span id="currentIndex">@currentPic</span>  of <span id="sumPic">@totalpic</span>
+			</span>
+			Choose a Thumbnail
+		</div>
+		<div>
+			<input name="no_picture" id="ujuuws_1" type="checkbox" onclick="hidePic(this);">No Thumbnail</input>
+		</div>
+	</div>
+</script>
+<script type="text/template" id="tpl-pageNation">
+	<span class="current prev prevspan" style="margin-left:0px">Prev</span><a onclick="getSearchData(@pagePrev,@iCPP,@source)" class="prev prevlink" style="line-height: 18px;">Prev</a>
+	<span class="current currentIndex">1</span>
+	<span class="current next nextspan" style="margin-left:0px">Next</span><a onclick="getSearchData(@pageNext,@iCPP,@source)" class="next nextlink" style="line-height: 18px;">Next</a>
+</script>
+
+<link rel="stylesheet" type="text/css" href="/curation/css/pagination.css" />
+<script type="text/javascript" src="/curation/lib/jquery.wysiwyg.js"></script>
+<script type="text/javascript" src="/curation/lib/jquery.pagination.js"></script>
+<script type="text/javascript" src="/curation/lib/jquery.tagsinput.js"></script>
+<script type="text/javascript" src="/curation/lib/jquery.ui.core.js"></script>
+<script type="text/javascript" src="/curation/lib/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="/curation/lib/jquery.ui.mouse.js"></script>
+<script type="text/javascript" src="/curation/lib/jquery.ui.sortable.js"></script>	
+<script type="text/javascript" src="/curation/lib/tag-1.3.0.js"></script>
+<script type="text/javascript" src="/curation/lib/bootstrap-tab.js"></script>
+<script type="text/javascript" src="/curation/lib/bootstrap-modal.js"></script>
+<script type="text/javascript" src="/curation/lib/bootstrap-button.js"></script>
+<script type="text/javascript" src="/curation/lib/bootstrap-transition.js"></script>
+<script type="text/javascript" src="/curation/lib/bootstrap-alert.js"></script>
+<script type="text/javascript" src="/curation/lib/sha1.js"></script>
+<script type="text/javascript" src="/curation/lib/oauth.js"></script>
+<script type="text/javascript" src="/curation/lib/async.js"></script>
+<script type="text/javascript" src="/curation/lib/jquery.autosize.js"></script>
+<script type="text/javascript" src="/curation/lib/iframe_api.js"></script>
+<script type="text/javascript" src="/curation/lib/rangy-core.js"></script>
+<script type="text/javascript" src="/curation/lib/rangy-cssclassapplier.js"></script>
+<script type="text/javascript" src="/curation/js/multipleshow.js"></script>
+<script type="text/javascript">(function() {var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; po.src = 'https://apis.google.com/js/plusone.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s); })();</script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<div id="fb-root"></div>
+<script>(function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";  fjs.parentNode.insertBefore(js, fjs);	}(document, 'script', 'facebook-jssdk'));</script>

@@ -1,0 +1,38 @@
+<div id="username" style="display:none;"><%= user ? user.username : "undefined"%></div>
+<div id="nodeid" style="display:none;"><%= nodeid ? nodeid : ""%></div>
+<div style="width:905px; margin-top:50px">	
+	<table id="bookmarkNode"></table>
+	<h4 style="margin-bottom:10px; margin-top:15px">bookmarked by the following users.</h4>
+	<table id="bookmarknodes" class="table table-striped" style="width:100%" align="center" >
+		<div id="bookmarkAjaxLoader"><center><img src='/curation/img/ajaxLoader.gif'><img></center></div>
+	</table>
+	<div class="pagination"></div>
+</div>
+
+<script type="text/template" id="tpl-bookmarklist">
+	<td style='text-align:left;'>
+		<div><a href="/users/<@= username @>"><@= username @></a></div>		
+	</td>
+	<td style='text-align:left;'>
+		<div> <@= FormatDateTime(datetime) @> </div>		
+	</td>
+</script>
+<script type="text/template" id="tpl-thBookmark">
+	<tr><td style='text-align:left;font-weight:bolder'>bookmark user</td><td style='text-align:left;font-weight:bolder'>bookmark time</td></tr>
+</script>
+
+<script type="text/template" id="tpl-node">
+	<td style='text-align:left; width:95px;'>
+		<a href="/nodes/<@= _id @>"><img style='max-height:90px; max-width:90px;' src=<@= thumbnail @> ></a>
+	</td>			
+	<td style='text-align:left; width:780px'>
+		<h2 style="word-wrap: break-word; word-break: normal;"> <a href="/nodes/<@= _id @>"><@=title @></a> - <a href="<@= showMoreLikeThis(_id) @>" class="btn btn-mini btn-primary">More Like This</a> </h2>
+		<div style="word-wrap: break-word; word-break: normal;"><font size="1pt" color="darkgray"><a href="/users/<@= username @>"><@= username @></a> - <@= FormatDateTime(updateDate) @> &nbsp;&nbsp; <@= view_total @> Views <@= bookmark_num>0 ? '<a href="/node/'+_id+'/bookmarks">' : '' @><@= bookmark_num @><@= bookmark_num>0 ? '</a>' : '' @> Bookmarks  <@= typeof(comment_num)!= "undefined"? comment_num:'0' @> Comments </font></div>
+		<div style="word-wrap: break-word; word-break: normal;"><@= content.length>390? content.substr(0,386)+"..." : content @></div>
+		<div style="word-wrap: break-word; word-break: normal;"><@= getTagsButtonStr(category) @></div>
+	</td>
+</script>
+
+<link rel="stylesheet" type="text/css" href="/curation/css/screen.css" />
+<script type="text/javascript" src="/curation/lib/jquery.pagination.js"></script>
+<script type="text/javascript" src="/curation/js/bookmarkrecords.js"></script>

@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Fujitsu Education Content Repository</title>
+	<link rel="stylesheet" type="text/css" href="/curation/css/jquery.wysiwyg.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="/curation/css/bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="/curation/css/bootstrap-responsive.css" />
+	<link rel="stylesheet" type="text/css" href="/curation/css/pagination.css" />
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+      }
+    </style>
+  </head>
+
+  <body>
+	
+	<div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <div class="icon-bar"></div>
+            <div class="icon-bar"></div>
+            <div class="icon-bar"></div>
+          </button>		 
+          <a class="brand" href="#" style=" margin-left:120px;">Fujitsu Education Content Repository</a>
+        </div>
+      </div>
+    </div>
+
+	<div align="left"> 
+		<div class="input">
+		  <input id="xlInput" name="q" style="margin-left:20px;margin-bottom:15px; width:200px" type="search" onkeydown="if(event.keyCode==13){searchData();};">			 
+		  <button class="btn btn-primary" type="button" style="margin-bottom:15px;" onclick="searchData();">Search</button>              
+		</div>
+		<div class="input">              
+		</div>  
+	</div>         
+
+    
+    
+    
+    <div class="container-fluid">
+    <div class="row">
+      <ul class="breadcrumb" id="navigation2">
+      </ul>
+    </div>
+    </div>
+    
+    <div class="container-fluid">
+	
+	  <!--导航栏 begin-->
+      <div class="sidebar" >
+        <div class="well">
+			<h5>Sources</h5>
+			<ul id="source" style="margin-left:25px;"></ul>
+			<h5>Tags</h5>			
+			<ul id="tag" style="margin-left:25px;"></ul>     
+		</div>
+      </div>
+	   <!--导航栏 end-->
+	 <div id="formatdata"></div>
+      <div class="content" >        
+        <div>
+          <div><span id="lblRecordCount"></span><span id="lblTimeCount" style="padding-left:5px"></span></div></br>
+		  <ul id="data-list"></ul> 
+		  <ul id="currentdata"></ul>
+		  <ul id="morelikethis-list">
+		  </ul> 
+        </div>
+		
+		<!--分页begin-->
+		<div>
+			<br/><br/>
+			<div id="searchContent" ></div>	
+			<div id="Pagination_bottom" class="pagination"></div>			
+		</div>
+		<div id="Pagination" class="pagination" style="height:0;"></div> 
+		<div id="hiddenresult" style="display:none;">
+			<div class="result"></div>
+		</div>
+      </div>
+              
+    </div>
+	
+    
+    <div class="container">
+      <footer>
+        <p>All Rights Reserved, Copyright © FUJITSU 2000 - 2011</p>
+      </footer>
+    </div>
+	
+		<!--invagation-->
+    <script type="text/template" id="source-template">	
+	   <a href='<%=url%>fq=author:<%=urlvalue%>' title="<%=point%>"><%=name%></a>(<%=num%>)
+   </script>
+   <script type="text/template" id="tag-template">	
+	   <a href='<%=url%>fq=category:<%=urlvalue%>' title="<%=point%>" ><%=name%></a>(<%=num%>)
+   </script>
+	
+	<!--begin content-->
+	
+		<script type="text/template" id="moreLikeThis">
+			<div>
+              <h4> <a href= <%=uri%> ><%=title%></a> </h4>
+				<div style='display:<%= type == "video" ? "block" : "none" %>'> 
+					<a href=<%=uri%> >
+					<img class="thumbnail" src=<%=thumbnail%> >
+					</a>                    
+				</div>
+				<hr>
+				 <p>Author:<%=author%></p>
+				 <p>Tag:<%=category%></p>
+				 <p>Content:<%=content%></p>
+				 <p>Update date:<%=updatedDate%></p>
+			</div>
+		</script>
+		
+		<script type="text/template" id="searchResultHasVideo">
+			<div>
+			
+              <h4><span class="label important"><%=type%></span><a href= <%=uri%> ><%=title%></a> - <a href= <%=path%> >More Like This</a> </h4>
+			
+                <p><%=content%></p>
+				 
+				    <div style='display:<%= type == "video" ? "block" : "none" %>'> 
+							<a href=<%=uri%> >
+	                        <img class="thumbnail" src=<%=thumbnail%> >
+	                        </a>                    
+                    </div>
+				<hr>
+				</div>
+		</script>
+		<script type="text/template" id="searchResultHasVideo2">
+			<div>
+			
+              <h4><span class="label important"><%=type%></span><a href= <%=uri%> ><%=title%></a> - <a href= <%=path%> >More Like This</a> </h4>
+			
+                <p><%=content%></p>
+				 
+				    <div style='display:<%= type == "video" ? "block" : "none" %>'> 
+							<a href=<%=uri%> >
+	                        <img class="thumbnail" src=<%=thumbnail%> >
+	                        </a>                    
+                    </div>
+				<hr>
+				</div>
+		</script>
+		
+	<!--end content-->
+    <script type="text/javascript" src="/curation/lib/jquery-1.7.js"></script>	
+	<script type="text/javascript" src="/curation/lib/jquery.pagination.js"></script>
+	<script type="text/javascript" src="/curation/lib/underscore-1.1.6.js"></script>
+	<script type="text/javascript" src="/curation/lib/backbone.js"></script>
+	<script type="text/javascript" src="/curation/js/searchVideoFromSolr.js"></script>
+</body></html>

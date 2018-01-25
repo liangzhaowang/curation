@@ -1,0 +1,111 @@
+<div id="username" style="display:none;"><%= user ? user.username : "undefined"%></div>
+<div id="userId" style="display:none;"><%= user ? user._id : "undefined"%></div>
+<div id="defaultCondition" style="display:none"><%= condition? condition.privacy : "" %></div>
+    <div class="container-fluid">
+		<div id="cloudShow" style="width:900px;margin:0px;"><div id="cloud_Tags" class="cloud_homePage" style="float:left"></div><div id="cloud_Sources" class="cloud_homePage" style="float:right"></div></div>
+		<!--导航栏 begin-->
+		<div class="sidebar" style="display:none">
+			<div class="well">
+				<h5>Sources</h5>
+				<ul id="source" style="margin-left:25px;"></ul>				
+				<h5>Types</h5>			
+				<ul id="type" style="margin-left:25px;"></ul>
+				<h5>Tags</h5>			
+				<ul id="tag" style="margin-left:25px;"></ul>  
+			</div>
+		</div>
+		<!--导航栏 end-->
+		<div id="formatdata"></div>
+		<div class="content" >        
+			<div>
+				<table style="margin-bottom:10px">
+					<tr><td style="height:40px" id="lblRecordCount"></td><td id="lblTimeCount" style="padding-left:5px"></td></td><td style="width:15px"></td>
+					<td id="sortSelect" style="display:none;width:180px;">sort by: <select id="sortBy" style="width:110px" onchange="sortResearch(this)"><option value="0">Update time</option><option value="1">Relevency</option></select></tr></tr>
+				</table>
+			  <div id="AjaxLoader" style="display:none"><center><img src='/curation/img/ajaxLoader.gif'><img></center></div>
+			  <table id="data-list" class="table table-striped" style="width:100@"></table> 
+			  <table id="morelikethis-list" class="table table-striped" style="width:100@"></table>
+			</div>
+			
+			<!--分页begin-->
+			<div>
+				<div id="searchContent" ></div>	
+				<div id="Pagination_Search" class="pagination" ></div>			
+			</div>
+		</div>              
+    </div>	
+    
+    <div class="container">
+      <footer>
+        <!--p>All Rights Reserved, Copyright © FUJITSU 2000 - 2011</p-->
+      </footer>
+    </div>
+	
+	   <script type="text/template" id="source-template">	
+		   <a href='<@=url@>fq=author:<@=urlvalue@>' title="<@=point@>"><@=name@></a>(<@=num@>)
+	   </script>
+	   <script type="text/template" id="tag-template">	
+		   <a href='<@=url@>fq=category:<@=urlvalue@>' title="<@=point@>" ><@=name@></a>(<@=num@>)
+	   </script>
+	   <script type="text/template" id="dataType-template">
+		   <a href='<@=url@>fq=type:<@=urlvalue@>' ><@=urlvalue@></a>(<@=num@>)
+	   </script>
+	  
+		<script type="text/template" id="tpl-pageNation">
+			<span class="current prev prevspan" style="margin-left:0px">Prev</span><a onclick="getData(@pagePrev,@iCPP)" class="prev prevlink" style="line-height:18px">Prev</a>
+			<span class="current currentIndex">1</span>
+			<span class="current next nextspan" style="margin-left:0px">Next</span><a onclick="getData(@pageNext,@iCPP)" class="next nextlink" style="line-height:18px">Next</a>
+		</script>
+
+		<script type="text/template" id="moreLikeThis">
+			<td style='text-align:left; width:95px;'>	
+				<div style="position:relative;">
+				<div style="position:absolute;bottom:2px;right:5px;background-color:black;color:snow;"><@=type =="video"? formatTime(duration) : ""@></div>
+				<a href=<@=uri @> ><img style='max-height:90px; max-width:90px;' src=<@= thumbnail @> ></a> 
+				</div>
+			</td>		
+			<td style='text-align:left;'>				
+				<h2 style="width:1020px"><span style="margin-top:9px" class="label important"><@=type@></span> <a href="<@= uri @>" ><@= title @></a> </h2>
+				<div style="width:1020px;word-wrap: break-word; word-break: normal;"><font size="1pt" color="darkgray"><@= author @> - <@= updatedDate? FormatDateTime(updatedDate):"" @></font></div>
+				<div class="partContent" style="display:block;width:1020px;word-wrap: break-word; word-break: normal;"><@= content.length>600? content.substr(0,600)+"...<a href='#' onclick='showAllContent(this)'>more</a>" : content @></div>
+				<div class="fullContent" style="display:none;width:1020px;word-wrap: break-word; word-break: normal;"><@=content@></div>
+				<!--<div style="width:1020px;word-wrap: break-word; word-break: normal;"><--@= getTagsButtonStr(category) @></div>-->
+			</td>
+		</script>
+		<script type="text/template" id="searchResultHasVideo2">
+			<td style='text-align:left; width:95px;'>
+			    <div style="position:absolute;color:snow;right:30px;margin-top:1px;">
+					<button class="icon-star-empty saveEditContent" title="Buffer" id="saveBufferButton"  style="border:none;display:<@= displaySaveButton @>;" onclick="saveItemsToBuffer(this)"></button>
+					<button class="icon-star saveEditContent" title="removeBuffer" id="removeBufferButton"  style="border:none;display:<@= displayRemoveButton @>" onclick="removeItemsFromBuffer(this)"></button>
+				</div>
+				<div style="position:relative;">
+				<div style="position:absolute;bottom:2px;right:5px;background-color:black;color:snow;"><@=type =="video"? formatTime(duration) : ""@></div>
+				<a href=<@=uri @> ><img style='max-height:90px; max-width:90px;' src=<@= thumbnail @> ></a> 
+				</div>				
+			</td>		
+			<td style='text-align:left;'>				
+				<h2 style="width:1020px"><span style="margin-top:9px" class="label important"><@=type@></span> <a id="bufferUrl" href="<@= uri @>" ><@= title @></a> - <a href="<@=path@>" class="btn btn-mini btn-primary" >More Like This</a></h2>
+				<div style="width:1020px;word-wrap: break-word; word-break: normal;"><font size="1pt" color="darkgray"><@= author @> - <@= updatedDate? FormatDateTime(updatedDate):"" @></font></div>
+				<div class="partContent" style="display:block;width:1020px;word-wrap: break-word; word-break: normal;"><@= content.length>600? content.substr(0,600)+"...<a href='#' onclick='showAllContent(this)'>more</a>" : content @></div>
+				<div class="fullContent" style="display:none;width:1020px;word-wrap: break-word; word-break: normal;"><@=content@></div>
+				<!--<div style="width:1020px;word-wrap: break-word; word-break: normal;"><--@= getTagsButtonStr(category) @></div>-->
+			</td>
+		</script>
+    <style type="text/css">
+	    body {
+	        padding-top: 60px;
+	      }
+		.cloud_homePage {
+			height: 4.5in;
+			margin: 0.5in auto;
+			padding: 0;
+			page-break-after: always;
+			page-break-inside: avoid;
+			width: 4.5in;
+		}
+    </style>	
+	<link rel="stylesheet" type="text/css" href="/curation/css/jquery.wysiwyg.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="/curation/css/pagination.css" />
+	<script type="text/javascript" src="/curation/lib/jquery.pagination.js"></script>
+	<script type="text/javascript" src="/curation/lib/jquery.awesomeCloud-0.2.min.js"></script>
+	<script type="text/javascript" src="/curation/js/searchDataPage.js"></script>

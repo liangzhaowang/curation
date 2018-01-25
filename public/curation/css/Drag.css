@@ -1,0 +1,3 @@
+ul{margin:20px;padding:10px;border:solid 1px #CCCCCC;list-style:none;float:left;}
+li{margin:5px;padding:5px;border:solid 1px #CCCCCC;background:#FCFCFC;cursor:pointer;}
+#dragGhost{border-style:dashed;display:none;padding:0px;margin:5px;}

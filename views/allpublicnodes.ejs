@@ -1,0 +1,54 @@
+<div style="width:905px; margin-top:50px">
+	<h2>All Public Nodes(<span id="nodeCount"></span>)</h2>
+	<div class="tabbable" id="tabsNew>">
+		<ul class="nav nav-tabs">
+			<li class="latest active"><a href="#tabs-1" data-toggle="tab">by updated time</a></li>
+			<li class="views"><a href="#tabs-2" data-toggle="tab">by views</a></li>
+			<li class="bookmark"><a href="#tabs-3" data-toggle="tab">by bookmarks</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane active" id="tabs-1">
+				<div id="byUpdateAjaxLoader"><center><img src='/curation/img/ajaxLoader.gif'><img></center></div>
+				<table id="latestnodes" class="table table-striped" style="width:100%" align="center" >
+				</table>
+			</div>
+			<div class="tab-pane" id="tabs-2">
+				<div id="byViewsAjaxLoader"><center><img src='/curation/img/ajaxLoader.gif'><img></center></div>
+				<table id="byviewsnodes" class="table table-striped" style="width:100%" align="center" >
+				</table>				
+			</div>
+			<div class="tab-pane" id="tabs-3">	
+				<div id="byBookmarksAjaxLoader"><center><img src='/curation/img/ajaxLoader.gif'><img></center></div>
+				<table id="bybookmarksnodes" class="table table-striped" style="width:100%" align="center" >
+				</table>				
+			</div>
+		</div>
+	</div>
+	<div class="pagination"></div>
+</div>
+
+<script type="text/template" id="tag-template">	
+	<a href='<@= url @>fq=category:<@= urlvalue @>' title="<@= point @>" ><@= name @></a>(<@= num @>)
+</script>
+
+<script type="text/template" id="tpl-nodelist">
+	<td style='text-align:left; width:95px;'>
+		<a href="/nodes/<@= _id @>"><img style='max-height:90px; max-width:90px;' src=<@= thumbnail @> ></a>
+	</td>			
+	<td style='text-align:left; width:780px'>
+		<h2 style="word-wrap: break-word; word-break: normal;"> <a href="/nodes/<@= _id @>"><@=title @></a> - <a href="<@= showMoreLikeThis(_id) @>" class="btn btn-mini btn-primary">More Like This</a> </h2>
+		<div style="word-wrap: break-word; word-break: normal;"><font size="1pt" color="darkgray"><a href="/users/<@= username @>"><@= username @></a> - <@= FormatDateTime(updateDate) @> &nbsp;&nbsp; <@= view_total @> Views <@= bookmark_num>0 ? '<a href="/node/'+_id+'/bookmarks">' : '' @><@= bookmark_num @><@= bookmark_num>0 ? '</a>' : '' @> Bookmarks  <@= typeof(comment_num)!= "undefined"? comment_num:'0' @> Comments </font></div>
+		<div class="partContent" style="display:block;word-wrap: break-word; word-break: normal;"><@= content.length>400? content.substr(0,400)+"...<a href='#' onclick='showAllContent(this)'>more</a>" : content @></div>
+		<div class="fullContent" style="display:none;word-wrap: break-word; word-break: normal;"><@=content@></div>
+		<div style="word-wrap: break-word; word-break: normal;"><@= getTagsButtonStr(category) @></div>
+	</td>
+</script>
+
+<script type="text/template" id="tpl-th-nodes">
+	<tr style="font-weight:bold"><td>Title</td><td>Author</td><td>Updated Time</td><td>Views</td><td>Bookmarks</td></tr>
+</script>
+
+<link rel="stylesheet" type="text/css" href="/curation/css/screen.css" />
+<script type="text/javascript" src="/curation/lib/bootstrap-tab.js"></script>
+<script type="text/javascript" src="/curation/lib/jquery.pagination.js"></script>
+<script type="text/javascript" src="/curation/js/allpublicnodes.js"></script>

@@ -1,0 +1,35 @@
+<html>
+  <body>
+	<input type="text" id="urlvalue" />
+	<input type="button" value="showData" onclick="getData();"/>
+	<div id="showTitle" style="text-align:center;font-size:16pt;font-weight:bolder;"></div>
+	<div id="showContent"></div>
+	<link rel="stylesheet" type="text/css" href="/curation/css/readability.css"/>
+    <script type="text/javascript" src="/curation/lib/jquery-1.7.js"></script>
+	
+	
+</body>
+<script type="text/javascript">
+function getData(){
+	var path = $("#urlvalue").val();
+	if(path){
+	$.ajax({
+		type: 'GET',
+		url: "/api/1/getContentByURL",
+		data: {url:path},
+		success: function(data) {
+			if(data){
+				alert($(data.content).text())
+			console.log($(data.content).text());
+				$("#showContent").html(data.content);
+				$("#showTitle").html(data.title);
+			}
+		}
+	});
+	}else{
+		alert("please input the search url");
+		return;
+	}
+}
+</script>
+</html>

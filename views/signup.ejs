@@ -1,0 +1,35 @@
+<script type="text/javascript" src="curation/lib/jquery-1.7.js"></script>
+<script type="text/javascript" src="curation/lib/sha1.js"></script>
+<script type="text/javascript" src="curation/js/signup.js"></script>
+<article class="container" style="margin-top:50px;width:900px">
+<div id="signup" class="accounts-form">
+  <h2>Create your free account</h2>
+  <hr class="small">  
+  
+  <div class="connect-buttons">
+		<a href="/signup/twitter" onclick="" class="btn btn-primary" id="twitter_button"><div>Sign up with <strong>Twitter</strong></div></a>
+		<a href="/signup/facebook" onclick="" class="btn btn-primary" id="facebook_button"><div>Sign up with <strong>Facebook</strong></div></a><br/>
+		<p style="margin-top:20px"><small>We won't ever post updates without your action</small></p>
+  </div>
+  <form action="" method="POST" autocomplete="off" class="clearfix" id="auth-form">
+    <h3>or with email</h3>
+    <div class="all-errors">
+        
+    </div>
+      <div class="input">
+        <input id="id_username" type="text" onblur= "checkName(this);" isExist="true" placeholder="Username" name="username" maxlength="30"><div id="usernameprompt"></div>
+      </div>
+      <div class="input">
+        <input id="id_email" type="text" onblur="checkEmail(this);" isExist="true" placeholder="Email" name="email" maxlength="75"><div id="emailprompt"></div>
+      </div>
+      <div class="input">
+        <input id="id_password" type="password" onblur="checkPassword(this);" isExist="true" placeholder="Password" name="password" ><div id="passwordprompt"></div>
+    </div>
+
+    <div class="actions">
+      <input type="button" onclick="register();" value="Create account" class="btn btn-primary btn-large">
+    </div>
+</form>
+</div>
+<p class="note">Already have an account? <a href="/login">Log in</a></p>
+</article>

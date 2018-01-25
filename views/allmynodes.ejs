@@ -1,0 +1,61 @@
+﻿<div id="username" style="display:none;"><%= user ? user.username : "undefined"%></div>
+<div id="nodeAuthor" style="display:none;"><%= (user&&user.isSelf=="false") ? user.nodeAuthor : user.username%></div>
+<div id="isSelf" style="display:none;"><%= user ? user.isSelf : "undefined"%></div>
+<div style="width:905px; margin-top:50px">
+
+	<h2>All <%if(user && user.isSelf == "true"){%>My<%} else {%><%= user ? user.nodeAuthor+"'s" : ""%><%}%> Nodes(<span id="nodeCount"></span>)</h2>
+	<div id="nodeTab" class="tabbable" id="tabsNew>">
+		<ul class="nav nav-tabs">
+			<li class="latest active"><a href="#tabs-1" data-toggle="tab">by updated time</a></li>
+			<li class="views"><a href="#tabs-2" data-toggle="tab">by views</a></li>
+			<li class="bookmark"><a href="#tabs-3" data-toggle="tab">by bookmarks</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane active" id="tabs-1">
+				<div id="byUpdateAjaxLoader"><center><img src='/curation/img/ajaxLoader.gif'><img></center></div>
+				<table id="latestnodes" class="table table-striped" style="width:100%" align="center" >
+				</table>				
+			</div>
+			<div class="tab-pane" id="tabs-2">
+				<div id="byViewsAjaxLoader"><center><img src='/curation/img/ajaxLoader.gif'><img></center></div>
+				<table id="byviewsnodes" class="table table-striped" style="width:100%" align="center" >
+				</table>
+			</div>
+			<div class="tab-pane" id="tabs-3">	
+				<div id="byBookmarksAjaxLoader"><center><img src='/curation/img/ajaxLoader.gif'><img></center></div>
+				<table id="bybookmarksnodes" class="table table-striped" style="width:100%" align="center" >
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="pagination"></div>
+</div>
+
+<script type="text/template" id="tpl-nodelist">
+	<td style='text-align:left; width:95px;'>
+		<a href="/nodes/<@= _id @>" ><img style='max-height:90px; max-width:90px;' src=<@= thumbnail @> ></a>
+	</td>			
+	<td style='text-align:left;'>
+		<h2 style="word-wrap: break-word; word-break: normal;"> <a href="/nodes/<@= _id @>" ><@=title @></a> - <a href="<@= showMoreLikeThis(_id) @>" class="btn btn-mini btn-primary">More Like This</a> </h2>
+		<div style="word-wrap: break-word; word-break: normal;"><font size="1pt" color="darkgray"><a href="/users/<@= username @>"><@= username @></a> - <@= FormatDateTime(updateDate) @> &nbsp;&nbsp; <@= view_total @> Views <@= bookmark_num>0 ? '<a href="/node/'+_id+'/bookmarks">' : '' @><@= bookmark_num @><@= bookmark_num>0 ? '</a>' : '' @> Bookmarks  <@= typeof(comment_num)!= "undefined"? comment_num:'0' @> Comments </font></div>
+		<div class="partContent" style="display:block;word-wrap: break-word; word-break: normal;"><@= content.length>400? content.substr(0,400)+"...<a href='#' onclick='showAllContent(this)'>more</a>" : content @></div>
+		<div class="fullContent" style="display:none;word-wrap: break-word; word-break: normal;"><@=content@></div>
+		<div style="word-wrap: break-word; word-break: normal;"><@= getTagsButtonStr(category) @></div>
+	</td>
+	<%if(user && user.isSelf == "true"){%>
+	<td style='text-align:center;nowrap:false;width:160px'>
+		<div id="<@= _id @>" class="btn-group" data-toggle="buttons-radio"> 
+			<button class="btn btn-mini btn-warning <@= privacy=="public" ? "active" : "" @>" <@= privacy=="public" ? "disabled=true" : "" @> value="public" onclick="switchPrivacy(this);">public</button> 
+			<button class="btn btn-mini btn-warning <@= privacy=="unlisted" ? "active" : "" @>" <@= privacy=="unlisted" ? "disabled=true" : "" @> value="unlisted" onclick="switchPrivacy(this);">unlisted</button> 
+			<button class="btn btn-mini btn-warning <@= privacy=="private" ? "active" : "" @>" <@= privacy=="private" ? "disabled=true" : "" @> value="private" onclick="switchPrivacy(this);">private</button> 
+		</div>
+		<br/>
+		<i id='<@= _id @>' class="icon-remove-sign" title="delete" onclick="deleteNode(this.id);" style="cursor:pointer;"></i>
+	</td>
+	<%}%>
+</script>
+
+<link rel="stylesheet" type="text/css" href="/curation/css/screen.css" />
+<script type="text/javascript" src="/curation/lib/bootstrap-tab.js"></script>
+<!--script type="text/javascript" src="/curation/lib/jquery.pagination.js"></script-->
+<script type="text/javascript" src="/curation/js/allmynodes.js"></script>

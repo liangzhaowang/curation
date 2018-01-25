@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Fujitsu Education Content Repository</title>
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+      }
+    </style>
+  </head>
+  <body>
+	<div id="defaultCondition" style="display:none"><%= condition? condition.privacy : "" %></div>
+	<div id="mltCondition" style="display:none"><%= (condition || condition.nodeid) ? condition.nodeid : "" %></div>
+	<div id="tagCondition" style="display:none"><%= (condition || condition.tag) ? condition.tag : "" %></div>
+    <!--div class="container-fluid" style="width:1423px">
+		<div class="row">
+		  <ul class="breadcrumb" id="navigation2">
+		  </ul>
+		</div>
+    </div-->
+	
+    <div class="container-fluid" style="width:1423px">
+	  <!--导航栏 begin-->
+      <div class="sidebar" >
+        <div class="well">
+			<h5>Author</h5>
+			<ul id="source" style="margin-left:25px;"></ul>
+			<h5>Tags</h5>			
+			<ul id="tag" style="margin-left:25px;"></ul>  
+			<!--<h5>Update Date</h5>
+			<ul id="updData" style="margin-left:25px;"></ul> 
+			-->			
+		</div>
+      </div>
+	   <!--导航栏 end-->
+	 <div id="formatdata"></div>
+      <div class="content" >        
+        <div style="width:1143px">		
+		   <table style="margin-bottom:10px">
+			<tr><td style="height:40px" id="lblRecordCount"></td><td id="lblTimeCount" style="padding-left:5px"></td></td><td style="width:15px"></td>
+			<td id="sortSelect" style="display:none;width:180px;">sort by: <select id="sortBy" style="width:110px" onchange="sortResearch(this)"><option value="0">Update time</option><option value="1">Relevency</option></select></tr></tr>
+		  </table>
+		  <table id="data-list" class="table table-striped" style="width:100%"></table> 
+		  <table id="morelikethis-list" class="table table-striped" style="width:100%"></table> 		  
+        </div>
+		
+		<!--分页begin-->
+		<div>
+			<div id="searchContent" ></div>	
+			<div class="pagination"></div>
+			<div id="hiddenresult"></div>	
+		</div>		
+      </div>
+              
+    </div>
+	
+	<!--invagation-->
+    <script type="text/template" id="source-template">	
+	   <a href='<@=url @>fq=author:"<@=urlvalue @>"' title="<@=point @>"><@=name @></a>(<@=num @>)
+   </script>
+   <script type="text/template" id="tag-template">	
+	   <a href='<@=url @>fq=category:"<@=urlvalue @>"' title="<@=point @>" ><@=name @></a>(<@=num @>)
+   </script>
+	
+	<!--begin content-->
+	
+		<script type="text/template" id="moreLikeThis">
+			<td style='text-align:left; width:95px;'>
+				<a href=<@=uri @> ><img style='max-height:90px; max-width:90px;' src=<@= thumbnail @> ></a> 
+			</td>		
+			<td style='text-align:left;'>
+				<h2 style="width:1020px"> <a href="<@= uri @>" ><@= title @></a> </h2>
+				<div style="width:1020px;word-wrap: break-word; word-break: normal;"><font size="1pt" color="darkgray"><@= author @> - <@= updatedDate? FormatDateTime(updatedDate):"" @></font></div>
+				<div class="partContent" style="display:block;width:1020px;word-wrap: break-word; word-break: normal;"><@= content.length>400? content.substr(0,400)+"...<a href='#' onclick='showAllContent(this)'>more</a>" : content @></div>
+				<div class="fullContent" style="display:none;width:1020px;word-wrap: break-word; word-break: normal;"><@=content@></div>
+				<div style="width:1020px;word-wrap: break-word; word-break: normal;"><@= getTagsButtonStr(category) @></div>
+			</td>
+		</script>		
+		<script type="text/template" id="searchResultHasVideo">
+			<td style='text-align:left; width:95px;'>
+				<a href=<@=uri @> ><img style='max-height:90px; max-width:90px;' src=<@= thumbnail @> ></a> 
+			</td>		
+			<td style='text-align:left;'>
+				<h2 style="width:1020px"> <a href="<@= uri @>" ><@= title @></a> - <a href="<@= showMoreLikeThis(id) @>" class="btn btn-mini btn-primary" >More Like This</a></h2>
+				<div style="width:1020px;word-wrap: break-word; word-break: normal;"><font size="1pt" color="darkgray"><a href="/users/<@= author @>"><@= author @></a> - <@= updatedDate? FormatDateTime(updatedDate):"" @></font></div>
+				<div class="partContent" style="display:block;width:1020px;word-wrap: break-word; word-break: normal;"><@= content.length>400? content.substr(0,400)+"...<a href='#' onclick='showAllContent(this)'>more</a>" : content @></div>
+				<div class="fullContent" style="display:none;width:1020px;word-wrap: break-word; word-break: normal;"><@=content@></div>
+				<div style="width:1020px;word-wrap: break-word; word-break: normal;"><@= getTagsButtonStr(category) @></div>
+			</td>
+		</script>
+		
+	<!--end content-->
+		<script type="text/template" id="tpl-pageNation">
+			<span class="current prev prevspan" style="margin-left:0px">Prev</span><a onclick="getData(@pagePrev,@iCPP)" class="prev prevlink">Prev</a>
+			<span class="current currentIndex">1</span>
+			<span class="current next nextspan" style="margin-left:0px">Next</span><a onclick="getData(@pageNext,@iCPP)" class="next nextlink">Next</a>
+		</script>
+
+	<script type="text/javascript" src="/curation/lib/jquery.pagination.js"></script>
+	<script type="text/javascript" src="/curation/js/sorlContent.js"></script>	
+</body></html>

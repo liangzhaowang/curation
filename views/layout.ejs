@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Web Curation Engine</title>
+	<link rel="stylesheet" type="text/css" href="/curation/css/bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="/curation/css/bootstrap-responsive.css" />	
+	<!--link rel="stylesheet" type="text/css" href="/curation/css/pagination.css" /-->
+	<link rel="stylesheet" type="text/css" href="/curation/css/jquery.wysiwyg.css" />
+	<link rel="stylesheet" type="text/css" href="/curation/css/custom.css" />
+	<script type="text/javascript" src="/curation/lib/jquery-1.7.js"></script>
+	<script type="text/javascript" src="/curation/lib/underscore-1.1.6.js"></script>
+	<script type="text/javascript" src="/curation/lib/jquery.masonry.min.js"></script>
+	<script type="text/javascript" src="/curation/lib/backbone.js"></script>
+	<script type="text/javascript" src="/curation/lib/backbone-localstorage.js"></script>	
+	<script type="text/javascript" src="/curation/lib/bootstrap-collapse.js"></script>
+	<script type="text/javascript" src="/curation/js/conf.js"></script>
+	<script type="text/javascript" src="/curation/js/common.js"></script>
+</head>
+<body> 
+	<div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <div class="icon-bar"></div>
+            <div class="icon-bar"></div>
+            <div class="icon-bar"></div>
+          </button>		 
+          <a class="brand" href="#" style=" margin-left:120px;">Curation</a>
+          <div style="height: 0px;" class="nav-collapse collapse">
+			 <% if(user && user.signup){ %>
+			<div class="nav-collapse"></div>
+			 <% }else{ %>
+			<% if (user && user.exist){ %>
+				<ul class="nav">
+				  <li class="home"><a href="/">Home</a></li>
+				  <li class="userhome"><a href="/users/<%= user.username %>"><%= user.displayName %></a></li>
+				  <!--<li><a href="/users/<%= user.username %>/account">Account</a></li> -->
+				  <li><button class="btn" onclick="location='/createnode'">Create Node</button></li>
+				  <li>
+					<div>
+					<input id="xlInput" name="q" style="width:140px;" placeholder="please input keywords" onkeydown="if(event.keyCode==13){searchData();};">
+					<select id="searchScope" style="width:106px;font-size:8pt;height:24px" name="nodetype">
+						<option value="1" selected>public nodes</option>
+						<option value="2">my nodes</option>
+						<option value="3">OER nodes</option>
+					</select>
+					<button class="btn" onclick="searchData(this)">Search</button>
+					</div>
+				  </li>				  
+				  <li><a href="/logout">Log Out</a></li>
+				  <!--li>
+					<div class="btn-group" data-toggle="buttons-radio"> 
+						<button class="list btn btn-mini btn-warning" value="list" onclick="changeView(this);">list</button>
+						<button class="grid btn btn-mini btn-warning" value="grid" onclick="changeView(this);">grid</button>
+					</div>
+				  </li-->
+				</ul>
+			 <% } else { %>	
+			    <ul class="nav">
+				  <li class="home"><a href="/">Home</a></li>
+				  <li class="login"><a href="/login">Login</a></li> 
+				  <li class="signup"><a href="/signup">Sign up</a></li>
+				  <li>
+					  <div class="input">
+						  <input id="xlInput" name="q" style="margin:7px;" placeholder="please input keywords" onkeydown="if(event.keyCode==13){searchData();};">
+						  <button class="btn" onclick="searchData(this)">Search</button>
+					  </div>
+				  </li>
+				  <!--li>
+					<div class="btn-group" data-toggle="buttons-radio"> 
+						<button class="list btn btn-mini btn-warning" value="list" onclick="changeView(this);">list</button>
+						<button class="grid btn btn-mini btn-warning" value="grid" onclick="changeView(this);">grid</button>
+					</div>
+				  </li-->
+				</ul>
+			 <% } %>	
+		     <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+ <%- body %>
+
+<!--div style="text-align:center">All Rights Reserved, Copyright © FUJITSU 2000 - 2011</div--> 
+<script type="text/javascript">
+	function searchData(obj){
+		var scope = "";
+		var key = $("#xlInput").val();
+		var selectValue = $("#searchScope option:selected").attr("value");
+		if($("#searchScope").length>0){
+			if(selectValue == "1"){
+				scope = "&fq=privacy:public";
+			}else if(selectValue == "2"){
+				scope = "&fq=author:<%= (user&&user.exist) ? user.username : "" %>";
+			}
+		}
+		if(selectValue == "3"){
+			if(key != null && key != ""){
+				location = "/jumpToSearchPage?q=\"" + key+"\"";
+			}else{
+				location = "/jumpToSearchPage?q=" + key;
+			}
+		}else
+		{
+			if(key != null && key != ""){
+				location = "/solrData?q=\"" + key+"\""+scope;
+			}else{
+				location = "/solrData?q=" + key+scope;
+			}
+		}
+	}
+</script>
+</body></html>

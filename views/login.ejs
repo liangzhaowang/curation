@@ -1,0 +1,33 @@
+<script type="text/javascript" src="curation/lib/sha1.js"></script>
+<script type="text/javascript">
+	$(".login").addClass("active");
+</script>
+<article class="container" style="margin-top:50px; width:900px">
+	<div id="login" >
+		<h2>Log in to your account</h2>
+		<hr class="small">		  
+		  <div class="connect-buttons">
+				<a href="/auth/twitter" class="btn btn-primary" id="twitter_button"><span>Log in with <strong>Twitter</strong></span></a>
+				<a href="/auth/facebook" class="btn btn-primary" id="facebook_button"><span>Log in with <strong>Facebook</strong></span></a>
+		  </div>
+		
+		<form action="/login" method="POST" id="auth-form" style="margin-top:20px;" onsubmit="$('#id_password').val(hex_sha1($('#id_displayPassword').val()))">
+			<% if (message && message.length>0) { %>
+				<p style="color:red">Please enter a correct username and password.</p>
+				<p style="color:red">Note that both fields are case-sensitive.</p>
+			<% } %>
+			<div class="input">
+				<input id="id_username" type="text" name="username" maxlength="75" placeholder="Username or email">
+			</div>
+			<div class="input">
+				<input type="password" name="displayPassword" id="id_displayPassword" placeholder="Password"/>
+				<input style="display:none" type="password" name="password" id="id_password"/>
+			</div>
+			<div class="actions clearfix">
+				<input value="Log In" type="submit" class="btn btn-primary btn-large" style="width:100px">
+			</div>
+		</form>
+	</div>
+	<p class="note"><!--<a href="/resetpssword">Forgot your password?</a> - -->Need an account?
+	<a href="/signup">Sign up</a> </p>
+</article>

@@ -1,0 +1,115 @@
+info it worked if it ends with ok
+verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+verbose cli   'install',
+verbose cli   'express' ]
+info using npm@1.1.21
+info using node@v0.6.17
+verbose C:\Program Files\nodejs\\node.exe node symlink
+verbose config file C:\Documents and Settings\Administrator\.npmrc
+verbose config file C:\Program Files\nodejs\etc\npmrc
+verbose config file C:\Program Files\nodejs\node_modules\npm\npmrc
+verbose caching D:\NodeJS\curation\package.json
+verbose loadDefaults passport-local-examples-login@0.0.0
+verbose caching D:\NodeJS\curation\node_modules\async\package.json
+verbose caching D:\NodeJS\curation\node_modules\express\package.json
+verbose caching D:\NodeJS\curation\node_modules\ejs\package.json
+verbose caching D:\NodeJS\curation\node_modules\jade\package.json
+verbose caching D:\NodeJS\curation\node_modules\mongoskin\package.json
+verbose caching D:\NodeJS\curation\node_modules\node-readability\package.json
+verbose caching D:\NodeJS\curation\node_modules\oauth\package.json
+verbose caching D:\NodeJS\curation\node_modules\passport\package.json
+verbose caching D:\NodeJS\curation\node_modules\passport-facebook\package.json
+verbose caching D:\NodeJS\curation\node_modules\passport-local\package.json
+verbose caching D:\NodeJS\curation\node_modules\passport-twitter\package.json
+verbose caching D:\NodeJS\curation\node_modules\request\package.json
+verbose has bindings.gyp [ undefined,
+verbose has bindings.gyp   { file: 'D:\\NodeJS\\curation\\node_modules\\iconv\\package.json',
+verbose has bindings.gyp     contributors: false,
+verbose has bindings.gyp     gypfile: true,
+verbose has bindings.gyp     serverjs: false,
+verbose has bindings.gyp     wscript: true } ]
+verbose has wscript [ undefined,
+verbose has wscript   { file: 'D:\\NodeJS\\curation\\node_modules\\iconv\\package.json',
+verbose has wscript     contributors: false,
+verbose has wscript     gypfile: true,
+verbose has wscript     serverjs: false,
+verbose has wscript     wscript: true } ]
+verbose caching D:\NodeJS\curation\node_modules\iconv\package.json
+verbose from cache D:\NodeJS\curation\package.json
+verbose readDependencies: using package.json deps
+verbose cache add [ 'express@>= 0.0.0', null ]
+silly cache add: name, spec, args [ undefined, 'express@>= 0.0.0', [ 'express@>= 0.0.0', null ] ]
+verbose parsed url { pathname: 'express@', path: 'express@', href: 'express@' }
+silly cache add: name, spec, args [ 'express', '>= 0.0.0', [ 'express', '>= 0.0.0' ] ]
+verbose parsed url { pathname: '=', path: '=', href: '=' }
+verbose addNamed [ 'express', '>= 0.0.0' ]
+verbose addNamed [ null, '>=0.0.0' ]
+silly name, range, hasData [ 'express', '>=0.0.0', false ]
+verbose raw, before any munging express
+verbose url resolving [ 'http://registr.npmjs.vitecho.com/', './express' ]
+verbose url resolved http://registr.npmjs.vitecho.com/express
+http GET http://registr.npmjs.vitecho.com/express
+http 404 http://registr.npmjs.vitecho.com/express
+verbose bad json <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+verbose bad json <html><head>
+verbose bad json <title>404 Not Found</title>
+verbose bad json </head><body>
+verbose bad json <h1>Not Found</h1>
+verbose bad json <p>The requested URL /express was not found on this server.</p>
+verbose bad json <hr>
+verbose bad json <address>Apache/2.0.63 (Win32) SVN/1.4.5 DAV/2 Server at registr.npmjs.vitecho.com Port 80</address>
+verbose bad json </body></html>
+verbose bad json 
+ERR! registry error parsing json
+silly get cb [ 404,
+silly get cb   { date: 'Mon, 03 Sep 2012 05:50:48 GMT',
+silly get cb     server: 'Apache/2.0.63 (Win32) SVN/1.4.5 DAV/2',
+silly get cb     'content-length': '311',
+silly get cb     'keep-alive': 'timeout=15, max=100',
+silly get cb     connection: 'Keep-Alive',
+silly get cb     'content-type': 'text/html; charset=iso-8859-1' } ]
+ERR! SyntaxError: Unexpected token <
+ERR! <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+ERR! <html><head>
+ERR! <title>404 Not Found</title>
+ERR! </head><body>
+ERR! <h1>Not Found</h1>
+ERR! <p>The requested URL /express was not found on this server.</p>
+ERR! <hr>
+ERR! <address>Apache/2.0.63 (Win32) SVN/1.4.5 DAV/2 Server at registr.npmjs.vitecho.com Port 80</address>
+ERR! </body></html>
+ERR!     at Object.parse (native)
+ERR!     at Request._callback (C:\Program Files\nodejs\node_modules\npm\lib\utils\npm-registry-client\request.js:150:21)
+ERR!     at Request.callback (C:\Program Files\nodejs\node_modules\npm\node_modules\request\main.js:119:22)
+ERR!     at Request.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\request\main.js:605:16)
+ERR!     at Request.emit (events.js:67:17)
+ERR!     at IncomingMessage.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\request\main.js:564:14)
+ERR!     at IncomingMessage.emit (events.js:88:20)
+ERR!     at HTTPParser.parserOnMessageComplete [as onMessageComplete] (http.js:127:21)
+ERR!     at Socket.ondata (http.js:1176:24)
+ERR!     at TCP.onread (net.js:374:27)
+ERR! You may report this log at:
+ERR!     <http://github.com/isaacs/npm/issues>
+ERR! or email it to:
+ERR!     <npm-@googlegroups.com>
+ERR! 
+ERR! System Windows_NT 5.1.2600
+ERR! command "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "express"
+ERR! cwd D:\NodeJS\curation
+ERR! node -v v0.6.17
+ERR! npm -v 1.1.21
+ERR! type unexpected_token
+ERR! arguments [ '<' ]
+ERR! message Unexpected token <
+ERR! message <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+ERR! message <html><head>
+ERR! message <title>404 Not Found</title>
+ERR! message </head><body>
+ERR! message <h1>Not Found</h1>
+ERR! message <p>The requested URL /express was not found on this server.</p>
+ERR! message <hr>
+ERR! message <address>Apache/2.0.63 (Win32) SVN/1.4.5 DAV/2 Server at registr.npmjs.vitecho.com Port 80</address>
+ERR! message </body></html>
+ERR! message 
+verbose exit [ 1, true ]

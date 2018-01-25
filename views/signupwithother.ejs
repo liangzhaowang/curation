@@ -1,0 +1,29 @@
+<script type="text/javascript" src="curation/lib/jquery-1.7.js"></script>
+<script type="text/javascript" src="curation/js/signupwithother.js"></script>
+<div id="provider_id" style="display:none"><%=user.id%></div>
+<div id="provider_displayname" style="display:none"><%=user.displayName %></div>
+<div id="connprovider" style="display:none"><%=user.provider %></div>
+<div id="connemail" style="display:none"><%= typeof(user.emails)=="object"? "":user.emails %></div>
+<article class="container" style="margin-top:50px">
+    <div id="signup" class="accounts-form">
+        <h2>Complete your registration</h2>
+        <div class="connect-buttons"></div><br/>        
+        <div autocomplete="off" class="clearfix" id="auth-form">
+            <br/>
+            <div class="all-errors"></div>
+            <div class="input">
+                <input id="id_username" type="text" onblur="checkName(this);" isExist="true" placeholder="Username" name="username" maxlength="30">
+                <div id="usernameprompt"></div>
+            </div>
+            <div class="actions">
+                <input type="button" onclick="register();" value="Create account" class="btn btn-primary btn-large">
+            </div>
+        </div>
+    </div>
+    <p class="note">
+        Already have an account?
+        <a href="/login">
+            Log in
+        </a>
+    </p>
+</article>
